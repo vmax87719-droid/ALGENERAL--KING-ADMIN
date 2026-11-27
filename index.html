@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALGENERAL · بوابة الموزعين</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-blue: #1d7afc;
+      --dark-blue: #0b3b8c;
+      --light-blue: #4da3ff;
+      --glow-blue: rgba(29, 122, 252, 0.42);
+      --bg-dark: #050d1c;
+      --card-bg: rgba(10, 25, 52, 0.94);
+      --panel-bg: #0e2245;
+      --border: rgba(96, 165, 250, 0.22);
+      --text-muted: #9ab7de;
+      --emerald: #22c55e;
+      --amber: #f59e0b;
+      --red: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(29, 122, 252, 0.28), transparent 58%),
+        var(--bg-dark);
+      color: #ffffff;
+      padding: 18px;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: var(--card-bg);
+      border: 1px solid rgba(77, 163, 255, 0.38);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(29, 122, 252, 0.14);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--light-blue), var(--dark-blue));
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 17px;
+      box-shadow: 0 0 16px var(--glow-blue);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .brand span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .balance-pill {
+      background: linear-gradient(135deg, #1565d8, #0a2e6e);
+      border: 1px solid rgba(125, 195, 255, 0.45);
+      border-radius: 12px;
+      padding: 7px 15px;
+      text-align: center;
+    }
+
+    .balance-pill small {
+      display: block;
+      font-size: 11px;
+      color: #cfe4ff;
+    }
+
+    .balance-pill strong {
+      font-size: 18px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .btn-logout {
+      background: #10274f;
+      border: 1px solid var(--border);
+      color: #e6f0ff;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      width: auto;
+      margin: 0;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .section-title {
+      color: var(--light-blue);
+      border-bottom: 1px solid rgba(77, 163, 255, 0.3);
+      padding-bottom: 10px;
+      margin: 0 0 16px 0;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .owner-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--light-blue);
+      margin-bottom: 8px;
+    }
+
+    label {
+      font-size: 13px;
+      color: #d6e6ff;
+      margin-bottom: 6px;
+      display: block;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(96, 165, 250, 0.28);
+      background: var(--panel-bg);
+      color: #ffffff;
+      margin-bottom: 14px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--light-blue);
+      box-shadow: 0 0 0 3px rgba(29, 122, 252, 0.18);
+    }
+
+    button {
+      background: linear-gradient(135deg, var(--main-blue), var(--dark-blue));
+      color: #ffffff;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px;
+      transition: transform 0.12s, opacity 0.2s;
+    }
+
+    button:hover { opacity: 0.95; }
+    button:active { transform: scale(0.99); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    #loginScreen {
+      max-width: 430px;
+      margin: 52px auto;
+      border-color: rgba(77, 163, 255, 0.4);
+    }
+
+    .prices-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .price-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .price-card strong {
+      display: block;
+      color: #ffffff;
+      font-size: 15px;
+      margin-top: 2px;
+    }
+
+    .item-box {
+      background: var(--panel-bg);
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      border-right: 4px solid var(--light-blue);
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .item-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: #cfe0f7;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .code-txt {
+      font-weight: 900;
+      color: #ffffff;
+      font-size: 14.5px;
+      word-break: break-all;
+    }
+
+    .copy-mini {
+      background: #173669;
+      border: 1px solid rgba(110, 175, 255, 0.4);
+      color: #ffffff;
+      padding: 5px 11px;
+      font-size: 12px;
+      border-radius: 8px;
+      width: auto;
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .actions button {
+      padding: 7px 8px;
+      font-size: 12px;
+      margin: 0;
+      flex: 1;
+      min-width: 72px;
+      border-radius: 8px;
+    }
+
+    .btn-stop { background: #334155; }
+    .btn-reset { background: #1d4ed8; }
+    .btn-del { background: #991b1b; }
+    .btn-warn { background: #b45309; }
+    .btn-ok { background: #15803d; }
+
+    .status-active { color: var(--emerald); font-weight: 700; }
+    .status-banned { color: #f87171; font-weight: 700; }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #0d264f;
+      color: #ffffff;
+      border: 1px solid var(--light-blue);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.65), 0 0 15px var(--glow-blue);
+      padding: 11px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 9999;
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hide { display: none !important; }
+
+    @media (max-width: 520px) {
+      .prices-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginScreen" class="card">
+    <div class="brand" style="justify-content:center; margin-bottom:14px;">
+      <div class="brand-badge">AR</div>
+      <div>
+        <h1>ALGENERAL RESELLERS</h1>
+        <span>بوابة الموزعين والإدارة</span>
+      </div>
+    </div>
+    <h2 class="section-title" style="text-align:center;">أدخل يوزر نيم وكلمة سر</h2>
+    <div class="owner-label">يوزر المالك: ALGENERAL</div>
+    <label>يوزر نيم</label>
+    <input type="text" id="loginUser" autocomplete="off">
+    <label>كلمة سر</label>
+    <input type="password" id="loginPass" autocomplete="off">
+    <button id="loginBtn" type="button">دخول</button>
+  </div>
+
+  <div id="appPanel" class="container hide">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-badge">AR</div>
+        <div>
+          <h1 id="panelTitle">ALGENERAL · RESELLERS</h1>
+          <span id="siteStatusSub">حالة الموقع: مفتوح</span>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <div id="balanceBox" class="balance-pill hide">
+          <small>الرصيد</small>
+          <strong id="balanceVal">$100.00</strong>
+        </div>
+        <button class="btn-logout" type="button" onclick="logout()">خروج</button>
+      </div>
+    </div>
+
+    <div id="lockedNotice" class="card hide" style="border-color: rgba(239,68,68,0.6);">
+      <h2 class="section-title" style="color:#f87171;">الموقع مقفول حالياً</h2>
+      <p style="margin:0; color:var(--text-muted);">تم قفل الموقع من قِبل المالك.</p>
+    </div>
+
+    <!-- لوحة المالك -->
+    <div id="ownerSection" class="hide">
+      <div class="card">
+        <h3 class="section-title">تحكم المالك</h3>
+        <button id="toggleSiteBtn" class="btn-warn" type="button" onclick="toggleSiteLock()">قفل الموقع</button>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">إنشاء حساب موزع</h3>
+        <label>يوزر نيم الموزع</label>
+        <input type="text" id="newResUser" autocomplete="off">
+        <label>كلمة سر الموزع</label>
+        <input type="password" id="newResPass" autocomplete="off">
+        <label>الرصيد ($)</label>
+        <input type="number" id="newResBal" value="100" min="0" step="0.01">
+        <button type="button" onclick="createReseller()">إنشاء</button>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">إدارة حسابات الموزعين</h3>
+        <div id="resellersList"></div>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">جميع الأكواد</h3>
+        <div id="ownerCodesList"></div>
+      </div>
+    </div>
+
+    <!-- لوحة الموزع -->
+    <div id="resellerSection" class="hide">
+      <div class="card">
+        <h3 class="section-title">توليد كود جديد</h3>
+        <div class="prices-row">
+          <div class="price-card">1 ساعة<strong>$0.30</strong></div>
+          <div class="price-card">1 يوم<strong>$1.30</strong></div>
+          <div class="price-card">1 شهر<strong>$15.00</strong></div>
+        </div>
+        <label>اختر المدة والسعر</label>
+        <select id="planSelect">
+          <option value="1h">1 ساعة — $0.30</option>
+          <option value="1d">1 يوم — $1.30</option>
+          <option value="30d">1 شهر — $15.00</option>
+        </select>
+        <button id="genCodeBtn" type="button" onclick="generateResellerCode()">توليد كود ALGENERAL</button>
+
+        <div id="singleResult" class="hide" style="background:#081730; padding:14px; border-radius:10px; border:1px dashed var(--light-blue); text-align:center; margin-top:8px;">
+          <div id="singleCodeText" class="code-txt" style="font-size:18px; margin-bottom:8px;"></div>
+          <button type="button" class="copy-mini" onclick="copyText(document.getElementById('singleCodeText').textContent)">نسخ الكود 📋</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="section-title">أكوادك</h3>
+        <div id="resellerCodesList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import {
+      getFirestore, doc, setDoc, getDoc, collection, getDocs,
+      deleteDoc, updateDoc, runTransaction, Timestamp
+    } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB8TFOsvyZHCnIXQFZBFotdhLhFs6WoubQ",
+      authDomain: "algeneral-95210.firebaseapp.com",
+      projectId: "algeneral-95210",
+      storageBucket: "algeneral-95210.firebasestorage.app",
+      messagingSenderId: "666486704683",
+      appId: "1:666486704683:web:d82a78527fa09fb036786e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const OWNER_USER = "ALGENERAL";
+    const OWNER_PASS = "MORADKING";
+
+    const RESELLER_PLANS = {
+      "1h": { price: 0.30, ms: 3600000, text: "1 ساعة" },
+      "1d": { price: 1.30, ms: 86400000, text: "1 يوم" },
+      "30d": { price: 15.00, ms: 2592000000, text: "شهر (30 يوم)" }
+    };
+
+    let siteLocked = false;
+    let currentSession = null; // { role: 'owner' | 'reseller', username: string }
+    let resellersCache = [];
+    let codesCache = [];
+    let busy = false;
+    let toastTimer = null;
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+    }
+
+    window.copyText = function(txt) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).catch(() => {});
+      }
+      showToast("تم نسخ الكود: " + txt);
+    };
+
+    function part3() {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let out = "";
+      for (let i = 0; i < 3; i++) {
+        out += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return out;
+    }
+
+    function makeCode() {
+      return `ALGENERAL-${part3()}-${part3()}`;
+    }
+
+    async function loadSiteAndData() {
+      const siteSnap = await getDoc(doc(db, "settings", "reseller_portal"));
+      siteLocked = siteSnap.exists() ? Boolean(siteSnap.data().locked) : false;
+
+      const resSnap = await getDocs(collection(db, "resellers"));
+      resellersCache = resSnap.docs.map(d => Object.assign({ username: d.id }, d.data()));
+
+      const codesSnap = await getDocs(collection(db, "codes"));
+      codesCache = codesSnap.docs.map(d => {
+        const data = d.data() || {};
+        const used = Array.isArray(data.usedDevices) ? data.usedDevices : [];
+        return {
+          id: d.id,
+          code: data.code || d.id,
+          reseller: data.reseller || "",
+          durationText: data.durationText || "",
+          durationMs: data.durationMs || 3600000,
+          price: typeof data.price === "number" ? data.price : 0,
+          status: data.status || "active",
+          maxDevices: typeof data.maxDevices === "number" ? data.maxDevices : 1,
+          usedCount: used.length
+        };
+      });
+    }
+
+    async function handleLogin() {
+      if (busy) return;
+      const u = document.getElementById("loginUser").value.trim();
+      const p = document.getElementById("loginPass").value;
+      if (!u || !p) {
+        showToast("أدخل يوزر نيم وكلمة سر");
+        return;
+      }
+
+      busy = true;
+      try {
+        await loadSiteAndData();
+      } catch (e) {
+        busy = false;
+        showToast("تعذر الاتصال بقاعدة البيانات");
+        return;
+      }
+      busy = false;
+
+      if (u === OWNER_USER && p === OWNER_PASS) {
+        currentSession = { role: "owner", username: u };
+        renderUI();
+        return;
+      }
+
+      if (siteLocked) {
+        showToast("الموقع مقفول حالياً");
+        return;
+      }
+
+      const found = resellersCache.find(r => r.username === u && r.password === p);
+      if (!found) {
+        showToast("بيانات الدخول غير صحيحة");
+        return;
+      }
+      if (!found.allowed) {
+        showToast("حساب الموزع غير مسموح حالياً");
+        return;
+      }
+
+      currentSession = { role: "reseller", username: found.username };
+      renderUI();
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", handleLogin);
+
+    window.logout = function() {
+      currentSession = null;
+      document.getElementById("loginUser").value = "";
+      document.getElementById("loginPass").value = "";
+      renderUI();
+    };
+
+    window.toggleSiteLock = async function() {
+      if (busy || !currentSession || currentSession.role !== "owner") return;
+      busy = true;
+      const nextLock = !siteLocked;
+      await setDoc(doc(db, "settings", "reseller_portal"), { locked: nextLock }, { merge: true });
+      siteLocked = nextLock;
+      busy = false;
+      showToast(siteLocked ? "تم قفل الموقع" : "تم فتح الموقع");
+      renderUI();
+    };
+
+    window.createReseller = async function() {
+      if (busy || !currentSession || currentSession.role !== "owner") return;
+      const u = document.getElementById("newResUser").value.trim();
+      const p = document.getElementById("newResPass").value;
+      const balRaw = parseFloat(document.getElementById("newResBal").value);
+
+      if (!u || !p) {
+        showToast("أدخل يوزر نيم وكلمة سر للموزع");
+        return;
+      }
+      if (u === OWNER_USER) {
+        showToast("لا يمكن استخدام يوزر المالك");
+        return;
+      }
+
+      busy = true;
+      const ref = doc(db, "resellers", u);
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        busy = false;
+        showToast("اسم الموزع موجود بالفعل");
+        return;
+      }
+
+      const bal = isNaN(balRaw) ? 100 : Math.max(0, Number(balRaw.toFixed(2)));
+      await setDoc(ref, {
+        username: u,
+        password: p,
+        balance: bal,
+        allowed: true
+      });
+
+      document.getElementById("newResUser").value = "";
+      document.getElementById("newResPass").value = "";
+      await loadSiteAndData();
+      busy = false;
+      showToast("تم إنشاء حساب الموزع");
+      renderUI();
+    };
+
+    window.toggleResellerAllow = async function(username) {
+      if (busy || !currentSession || currentSession.role !== "owner") return;
+      const r = resellersCache.find(x => x.username === username);
+      if (!r) return;
+      busy = true;
+      await updateDoc(doc(db, "resellers", username), { allowed: !r.allowed });
+      await loadSiteAndData();
+      busy = false;
+      renderUI();
+    };
+
+    window.generateResellerCode = async function() {
+      if (busy || !currentSession || currentSession.role !== "reseller") return;
+      const planKey = document.getElementById("planSelect").value;
+      const plan = RESELLER_PLANS[planKey];
+      if (!plan) return;
+
+      busy = true;
+      const btn = document.getElementById("genCodeBtn");
+      btn.disabled = true;
+
+      try {
+        const siteRef = doc(db, "settings", "reseller_portal");
+        const resRef = doc(db, "resellers", currentSession.username);
+        let finalCode = "";
+
+        await runTransaction(db, async (tx) => {
+          const [siteSnap, resSnap] = await Promise.all([tx.get(siteRef), tx.get(resRef)]);
+          if (siteSnap.exists() && siteSnap.data().locked === true) {
+            throw new Error("LOCKED");
+          }
+          if (!resSnap.exists() || resSnap.data().allowed !== true) {
+            throw new Error("BLOCKED");
+          }
+
+          const currentBal = Number(resSnap.data().balance || 0);
+          if (currentBal < plan.price) {
+            throw new Error("NO_MONEY");
+          }
+
+          let candidate = makeCode();
+          let cRef = doc(db, "codes", candidate);
+          let cSnap = await tx.get(cRef);
+          let tries = 0;
+          while (cSnap.exists() && tries < 8) {
+            candidate = makeCode();
+            cRef = doc(db, "codes", candidate);
+            cSnap = await tx.get(cRef);
+            tries++;
+          }
+          if (cSnap.exists()) {
+            throw new Error("DUP");
+          }
+
+          const updatedBal = Number((currentBal - plan.price).toFixed(2));
+          const expDate = new Date(Date.now() + plan.ms);
+
+          tx.update(resRef, { balance: updatedBal });
+          tx.set(cRef, {
+            code: candidate,
+            durationText: plan.text,
+            durationMs: plan.ms,
+            expiresAt: Timestamp.fromDate(expDate),
+            maxDevices: 1,
+            usedDevices: [],
+            status: "active",
+            createdAt: new Date().toISOString(),
+            reseller: currentSession.username,
+            price: plan.price
+          });
+
+          finalCode = candidate;
+        });
+
+        await loadSiteAndData();
+        document.getElementById("singleCodeText").textContent = finalCode;
+        document.getElementById("singleResult").classList.remove("hide");
+        showToast("تم توليد الكود: " + finalCode);
+      } catch (err) {
+        const m = err && err.message ? err.message : "";
+        if (m === "LOCKED") showToast("الموقع مقفول حالياً");
+        else if (m === "BLOCKED") showToast("تم إيقاف حسابك");
+        else if (m === "NO_MONEY") showToast("رصيدك انتهى أو غير كافٍ للشراء");
+        else showToast("تعذر توليد الكود");
+      }
+
+      btn.disabled = false;
+      busy = false;
+      renderUI();
+    };
+
+    window.toggleCodeState = async function(codeStr, currentStatus) {
+      if (busy || !currentSession) return;
+      const item = codesCache.find(c => c.code === codeStr);
+      if (!item) return;
+      if (currentSession.role === "reseller" && item.reseller !== currentSession.username) return;
+
+      busy = true;
+      const nextStatus = currentStatus === "active" ? "banned" : "active";
+      await updateDoc(doc(db, "codes", codeStr), { status: nextStatus });
+      await loadSiteAndData();
+      busy = false;
+      renderUI();
+    };
+
+    window.resetCodeDevice = async function(codeStr) {
+      if (busy || !currentSession) return;
+      const item = codesCache.find(c => c.code === codeStr);
+      if (!item) return;
+      if (currentSession.role === "reseller" && item.reseller !== currentSession.username) return;
+
+      busy = true;
+      await updateDoc(doc(db, "codes", codeStr), {
+        usedDevices: [],
+        status: "active"
+      });
+      await loadSiteAndData();
+      busy = false;
+      showToast("تم عمل ريست للكود: " + codeStr);
+      renderUI();
+    };
+
+    window.removeCode = async function(codeStr) {
+      if (busy || !currentSession) return;
+      const item = codesCache.find(c => c.code === codeStr);
+      if (!item) return;
+      if (currentSession.role === "reseller" && item.reseller !== currentSession.username) return;
+
+      busy = true;
+      // حذف الكود نهائياً دون إرجاع أي رصيد للموزع
+      await deleteDoc(doc(db, "codes", codeStr));
+      await loadSiteAndData();
+      busy = false;
+      showToast("تم حذف الكود ولم يتم إرجاع الرصيد");
+      renderUI();
+    };
+
+    function renderUI() {
+      document.getElementById("siteStatusSub").textContent =
+        siteLocked ? "حالة الموقع: مقفول" : "حالة الموقع: مفتوح";
+      document.getElementById("toggleSiteBtn").textContent =
+        siteLocked ? "فتح الموقع" : "قفل الموقع";
+
+      if (!currentSession) {
+        document.getElementById("loginScreen").classList.remove("hide");
+        document.getElementById("appPanel").classList.add("hide");
+        return;
+      }
+
+      if (currentSession.role === "owner") {
+        document.getElementById("loginScreen").classList.add("hide");
+        document.getElementById("appPanel").classList.remove("hide");
+        document.getElementById("lockedNotice").classList.add("hide");
+        document.getElementById("balanceBox").classList.add("hide");
+        document.getElementById("ownerSection").classList.remove("hide");
+        document.getElementById("resellerSection").classList.add("hide");
+        renderOwnerLists();
+        return;
+      }
+
+      const activeRes = resellersCache.find(r => r.username === currentSession.username);
+      if (siteLocked || !activeRes || !activeRes.allowed) {
+        currentSession = null;
+        document.getElementById("loginScreen").classList.remove("hide");
+        document.getElementById("appPanel").classList.add("hide");
+        showToast(siteLocked ? "تم قفل الموقع" : "تم إيقاف حسابك");
+        return;
+      }
+
+      document.getElementById("loginScreen").classList.add("hide");
+      document.getElementById("appPanel").classList.remove("hide");
+      document.getElementById("lockedNotice").classList.add("hide");
+      document.getElementById("ownerSection").classList.add("hide");
+      document.getElementById("resellerSection").classList.remove("hide");
+      document.getElementById("balanceBox").classList.remove("hide");
+      document.getElementById("balanceVal").textContent = "$" + Number(activeRes.balance || 0).toFixed(2);
+      renderResellerCodes(activeRes.username);
+    }
+
+    function renderOwnerLists() {
+      const rEl = document.getElementById("resellersList");
+      if (!resellersCache.length) {
+        rEl.innerHTML = "<p style='text-align:center;color:var(--text-muted);'>لا يوجد موزعون بعد.</p>";
+      } else {
+        rEl.innerHTML = resellersCache.map(r => `
+          <div class="item-box">
+            <div class="item-top">
+              <span class="code-txt">${r.username}</span>
+              <span class="${r.allowed ? "status-active" : "status-banned"}">${r.allowed ? "مسموح" : "موقوف"}</span>
+            </div>
+            <div class="item-info">
+              <span>الرصيد: $${Number(r.balance || 0).toFixed(2)}</span>
+            </div>
+            <div class="actions">
+              <button class="${r.allowed ? "btn-stop" : "btn-ok"}" type="button" onclick="toggleResellerAllow('${r.username}')">
+                ${r.allowed ? "إيقاف الحساب" : "سماح للحساب"}
+              </button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const cEl = document.getElementById("ownerCodesList");
+      if (!codesCache.length) {
+        cEl.innerHTML = "<p style='text-align:center;color:var(--text-muted);'>لا توجد أكواد.</p>";
+      } else {
+        cEl.innerHTML = codesCache.map(c => `
+          <div class="item-box">
+            <div class="item-top">
+              <span class="code-txt">${c.code}</span>
+              <button class="copy-mini" type="button" onclick="copyText('${c.code}')">نسخ 📋</button>
+            </div>
+            <div class="item-info">
+              <span>الموزع: ${c.reseller || "الإدارة"}</span>
+              <span>المدة: ${c.durationText || "-"}</span>
+              <span>الحالة: <span class="${c.status === "active" ? "status-active" : "status-banned"}">${c.status === "active" ? "نشط" : "موقوف"}</span></span>
+            </div>
+            <div class="actions">
+              <button class="btn-stop" type="button" onclick="toggleCodeState('${c.code}', '${c.status}')">${c.status === "active" ? "إيقاف" : "تفعيل"}</button>
+              <button class="btn-reset" type="button" onclick="resetCodeDevice('${c.code}')">ريست</button>
+              <button class="btn-del" type="button" onclick="removeCode('${c.code}')">حذف</button>
+            </div>
+          </div>
+        `).join("");
+      }
+    }
+
+    function renderResellerCodes(username) {
+      const mine = codesCache.filter(c => c.reseller === username);
+      const el = document.getElementById("resellerCodesList");
+      if (!mine.length) {
+        el.innerHTML = "<p style='text-align:center;color:var(--text-muted);'>لم تقم بتوليد أكواد بعد.</p>";
+        return;
+      }
+
+      el.innerHTML = mine.map(c => `
+        <div class="item-box">
+          <div class="item-top">
+            <span class="code-txt">${c.code}</span>
+            <button class="copy-mini" type="button" onclick="copyText('${c.code}')">نسخ 📋</button>
+          </div>
+          <div class="item-info">
+            <span>المدة: ${c.durationText || "-"}</span>
+            <span>السعر: $${Number(c.price || 0).toFixed(2)}</span>
+            <span>الحالة: <span class="${c.status === "active" ? "status-active" : "status-banned"}">${c.status === "active" ? "نشط" : "موقوف"}</span></span>
+          </div>
+          <div class="actions">
+            <button class="btn-stop" type="button" onclick="toggleCodeState('${c.code}', '${c.status}')">${c.status === "active" ? "إيقاف" : "تشغيل"}</button>
+            <button class="btn-reset" type="button" onclick="resetCodeDevice('${c.code}')">ريست</button>
+            <button class="btn-del" type="button" onclick="removeCode('${c.code}')">حذف</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    renderUI();
+  </script>
+</body>
+</html>
